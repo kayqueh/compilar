@@ -2,7 +2,7 @@ on:
   push:
     branches:
       # Para ativar a compilação e publicação de aplicativo colocar APK como  branch
-      - main
+      - APK
 jobs:
   build:
     runs-on: ubuntu-latest
