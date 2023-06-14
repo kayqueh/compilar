@@ -1,0 +1,44 @@
+on:
+  push:
+    branches:
+      - Google
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Preparar ambiente
+        env:
+          GITHUB_TOKEN: ${{ secrets.API_TOKEN_GITHUB }}
+          GIT_ASKPASS: /bin/true
+          GIT_AUTHOR_NAME: "kayqueh"
+          GIT_AUTHOR_EMAIL: "kayque@brcore.com.br"
+          GIT_COMMITTER_NAME: "kayqueh"
+          GIT_COMMITTER_EMAIL: "kayque@brcore.com.br"
+        run: |
+          git clone -b Google https://$GITHUB_TOKEN@github.com/kayqueh/populate-app.git ${{ github.workspace }}
+
+      - name: 🏗 Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          cache: npm
+
+      - name: 🏗 Setup Expo and EAS
+        uses: expo/expo-github-action@v7
+        with:
+          expo-version: latest
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: 📦 Install dependencies
+        run: npm install
+ 
+      - name: 🚀 Build app
+        run: eas build -p android --profile production --non-interactive --local
+
+      - name: Preparar aab
+        run: |
+          cp /home/runner/work/${{ github.event.repository.name }}/${{ github.event.repository.name }}/build-*.aab /home/runner/work/cmp.aab
+          
+      - name: 🚀 Publicar app
+        run: eas submit -p android --profile production --path /home/runner/work/cmp.aab
