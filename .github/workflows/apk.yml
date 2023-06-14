@@ -16,7 +16,7 @@ jobs:
           GIT_COMMITTER_NAME: "kayqueh"
           GIT_COMMITTER_EMAIL: "kayque@brcore.com.br"
         run: |
-          git clone https://$GITHUB_TOKEN@github.com/kayqueh/populate-app.git ${{ github.workspace }}
+          git clone -b APK https://$GITHUB_TOKEN@github.com/kayqueh/populate-app.git ${{ github.workspace }}
           
       - name: 🏗 Setup Node
         uses: actions/setup-node@v3
