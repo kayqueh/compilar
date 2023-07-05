@@ -1,7 +1,7 @@
 on:
-  push:
-    branches:
-      - Apple
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+  
 jobs:
   build:
     runs-on: macos-latest
@@ -15,7 +15,7 @@ jobs:
           GIT_COMMITTER_NAME: "kayqueh"
           GIT_COMMITTER_EMAIL: "kayque@brcore.com.br"
         run: |
-          git clone -b Apple https://$GITHUB_TOKEN@github.com/kayqueh/populate-app.git ${{ github.workspace }}
+          git clone -b main https://$GITHUB_TOKEN@github.com/kayqueh/populate-app.git ${{ github.workspace }}
 
       - name: 🏗 Setup Node
         uses: actions/setup-node@v3
@@ -35,6 +35,3 @@ jobs:
 
       - name: 🚀 Build app
         run: eas build -p ios --profile production --non-interactive --local
-      - name: Subir IPA para loja
-        run: eas submit -p ios --path /Users/runner/work/${{ github.event.repository.name }}/${{ github.event.repository.name }}/build-*.ipa --non-interactive
-
