@@ -24,6 +24,7 @@ jobs:
           git rm eas.json
           git rm google-services.json
           git commit -m "Remove arquivos"
+          mkdir -p assets
           cp ../temp_folder/assets/icone.png ./assets/
           cp ../temp_folder/assets/icone2.png ./assets/
           cp ../temp_folder/app.json .
