@@ -1,7 +1,7 @@
 on:
-  push:
-    branches:
-      - Google
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+  
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,7 +15,7 @@ jobs:
           GIT_COMMITTER_NAME: "kayqueh"
           GIT_COMMITTER_EMAIL: "kayque@brcore.com.br"
         run: |
-          git clone -b Google https://$GITHUB_TOKEN@github.com/kayqueh/populate-app.git ${{ github.workspace }}
+          git clone -b main https://$GITHUB_TOKEN@github.com/kayqueh/populate-app.git ${{ github.workspace }}
 
       - name: 🏗 Setup Node
         uses: actions/setup-node@v3
