@@ -18,7 +18,7 @@ jobs:
           git clone -b main https://$GITHUB_TOKEN@github.com/kayqueh/populate-app.git ${{ github.workspace }}
 
       - name: 🏗 Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 18.x
           cache: npm
