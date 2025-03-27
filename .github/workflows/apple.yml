@@ -30,16 +30,20 @@ jobs:
           eas-version: latest
           token: ${{ secrets.EXPO_TOKEN }}
 
-      - name: 🧹 Limpar cache do CocoaPods
-        run: |
-          rm -rf ~/Library/Caches/CocoaPods/
-          rm -rf Pods
-          rm -rf ~/Library/Developer/Xcode/DerivedData/*
-          pod deintegrate
-          pod cache clean --all
-
       - name: 📦 Install dependencies
         run: npm install
+
+      - name: 🏗 Instalar Boost 1.76
+        run: |
+          brew uninstall --ignore-dependencies boost || true
+          brew install boost@1.76
+          echo 'export PATH="/usr/local/opt/boost@1.76/bin:$PATH"' >> $HOME/.bash_profile
+          echo 'export LDFLAGS="-L/usr/local/opt/boost@1.76/lib"' >> $HOME/.bash_profile
+          echo 'export CPPFLAGS="-I/usr/local/opt/boost@1.76/include"' >> $HOME/.bash_profile
+          source $HOME/.bash_profile
+
+      - name: 📢 Verificar versão do Boost
+        run: brew info boost
 
       - name: 🚀 Build app
         run: eas build -p ios --profile production --non-interactive --local --clear-cache
