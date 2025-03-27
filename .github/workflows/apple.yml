@@ -33,6 +33,12 @@ jobs:
       - name: 📦 Install dependencies
         run: npm install
 
+      - name: 🛠 Atualizar CocoaPods
+        run: pod repo update
+
+      - name: 🧹 Limpar cache do CocoaPods
+        run: pod cache clean boost
+
       - name: 🚀 Build app
         run: eas build -p ios --profile production --non-interactive --local --clear-cache
         
