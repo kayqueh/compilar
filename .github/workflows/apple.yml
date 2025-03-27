@@ -36,7 +36,7 @@ jobs:
       - name: 🔍 Verificar diretórios antes de alterar boost.podspec
         run: |
           echo "Listando diretórios dentro de ios"
-          ls -R node_modules
+          ls -R node_modules/react-native
           echo "Fim da listagem"
           
       - name: 📝 Alterar URL do Boost no boost.podspec
