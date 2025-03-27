@@ -34,7 +34,7 @@ jobs:
         run: npm install
 
       - name: 🚀 Build app
-        run: eas build -p ios --profile production --non-interactive --local
+        run: eas build -p ios --profile production --non-interactive --local --clear-cache
         
       - name: Subir IPA para loja
         run: eas submit -p ios --path /Users/runner/work/${{ github.event.repository.name }}/${{ github.event.repository.name }}/build-*.ipa --non-interactive
