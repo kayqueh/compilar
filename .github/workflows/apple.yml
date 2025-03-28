@@ -4,7 +4,7 @@ on:
   
 jobs:
   build:
-    runs-on: macos-14
+    runs-on: macos-latest
     steps:
       - name: Preparar ambiente
         env:
@@ -18,19 +18,20 @@ jobs:
           git clone -b main https://$GITHUB_TOKEN@github.com/kayqueh/populate-app.git ${{ github.workspace }}
 
       - name: 🏗 Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4.0.2
         with:
           node-version: 18.x
-          cache: npm
+          cache: 'npm'
 
       - name: 🏗 Setup Expo and EAS
         uses: expo/expo-github-action@v8
         with:
+          expo-version: latest
           eas-version: latest
           token: ${{ secrets.EXPO_TOKEN }}
 
       - name: 📦 Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: 🚀 Build app
         run: eas build -p ios --profile production --non-interactive --local --clear-cache
